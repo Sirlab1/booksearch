@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<meta name="description" content="Discover, explore and search millions of books with BookNest.">
+<title>BookNest | Find Your Next Favorite Book</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #eaf6e5; --surface: #ffffff; --surface-2: #e2f3dc;
+  --text: #12301c; --muted: #46604e; --line: #c3e0bd;
+  --brand: #1f7a3e; --brand-dark: #14532d; --brand-soft: #d9f0d3; --star: #f5a524;
+  --shadow: 0 6px 22px rgba(20, 83, 45, .1);
+  --shadow-hover: 0 18px 36px rgba(20, 83, 45, .22);
+  --serif: "Fraunces", Georgia, serif;
+  --sans: "Inter", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid var(--brand-dark); outline-offset: 3px; }
+
+nav { position: sticky; top: 0; z-index: 20; display: flex; justify-content: space-between; align-items: center; padding: 14px 8%;
+  background: rgba(244, 252, 241, .85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+.logo { font-family: var(--serif); font-size: 1.5rem; font-weight: 800; color: var(--brand-dark); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+.logo span { display: inline-block; animation: wiggle 4s ease-in-out infinite; transform-origin: bottom left; }
+@keyframes wiggle { 0%, 80%, 100% { transform: rotate(0); } 85% { transform: rotate(-14deg); } 92% { transform: rotate(10deg); } }
+nav .links a { text-decoration: none; color: var(--text); margin-left: 24px; font-size: .9rem; font-weight: 600; background: linear-gradient(var(--brand), var(--brand)) 0 100% / 0 2px no-repeat; transition: background-size .3s; padding-bottom: 3px; }
+nav .links a:hover { background-size: 100% 2px; }
+
+/* Hero */
+.hero { position: relative; overflow: hidden; text-align: center; padding: 84px 20px 100px; color: var(--text);
+  background: linear-gradient(135deg, #d7f2cf, #bfe8b8 50%, #c6efdc); }
+.blob { position: absolute; border-radius: 50%; filter: blur(60px); opacity: .55; animation: drift 12s ease-in-out infinite alternate; }
+.blob.a { width: 340px; height: 340px; background: #86efac; top: -90px; left: -80px; }
+.blob.b { width: 300px; height: 300px; background: #d9f99d; bottom: -100px; right: -60px; animation-delay: -4s; }
+.blob.c { width: 220px; height: 220px; background: #5eead4; top: 30%; right: 30%; opacity: .35; animation-delay: -8s; }
+@keyframes drift { to { transform: translate(50px, 36px) scale(1.15); } }
+.spine { position: absolute; bottom: -30px; width: 52px; border-radius: 6px 6px 0 0; opacity: .3; animation: float 6s ease-in-out infinite; }
+.spine:nth-of-type(1) { left: 6%; height: 160px; background: #4ade80; }
+.spine:nth-of-type(2) { left: 11%; height: 210px; background: #2f9e5b; animation-delay: -2s; }
+.spine:nth-of-type(3) { right: 12%; height: 190px; background: #86c98a; animation-delay: -4s; }
+.spine:nth-of-type(4) { right: 6%; height: 145px; background: #4ade80; animation-delay: -1s; }
+@keyframes float { 50% { transform: translateY(-16px); } }
+.hero > .in { position: relative; animation: up .8s cubic-bezier(.2, .8, .2, 1) both; }
+.hero > .in:nth-of-type(2) { animation-delay: .1s; } .hero > .in:nth-of-type(3) { animation-delay: .2s; }
+.hero > .in:nth-of-type(4) { animation-delay: .3s; } .hero > .in:nth-of-type(5) { animation-delay: .4s; }
+@keyframes up { from { opacity: 0; transform: translateY(26px); } }
+.tag { display: inline-block; padding: 7px 16px; border: 1px solid #8fce86; border-radius: 30px; font-size: .72rem; font-weight: 700; letter-spacing: .12em; margin-bottom: 22px; background: rgba(255, 255, 255, .6); color: var(--brand-dark); }
+.hero h1 { font-family: var(--serif); font-weight: 800; font-size: clamp(2.2rem, 6vw, 4rem); line-height: 1.1; letter-spacing: -.02em; margin-bottom: 18px; color: var(--brand-dark); }
+.hero h1 span { background: linear-gradient(100deg, #14532d, #1f9d55, #0f766e, #14532d); background-size: 250% auto; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: shine 5s linear infinite; }
+@keyframes shine { to { background-position: 250% center; } }
+.hero p { color: var(--muted); max-width: 34rem; margin: 0 auto 32px; font-size: 1.05rem; }
+.search-box { display: flex; max-width: 680px; margin: auto; background: #fff; padding: 7px; border-radius: 16px; box-shadow: 0 18px 44px rgba(20, 83, 45, .22); border: 1px solid var(--line); transition: box-shadow .3s, transform .3s; }
+.search-box:focus-within { transform: translateY(-2px) scale(1.01); box-shadow: 0 22px 54px rgba(20, 83, 45, .32); }
+.search-box input { flex: 1; min-width: 0; border: none; background: transparent; color: var(--text); padding: 14px 16px; font: inherit; font-size: 1rem; border-radius: 12px; }
+.search-box input:focus-visible { outline-offset: -3px; }
+.search-box button { background: linear-gradient(120deg, #1f9d55, #14532d); color: #fff; border: none; padding: 0 26px; border-radius: 11px; cursor: pointer; font: inherit; font-weight: 700; transition: transform .2s, filter .2s; }
+.search-box button:hover { filter: brightness(1.1); transform: translateY(-1px); }
+
+.categories { text-align: center; padding: 34px 15px 6px; }
+.categories p { color: var(--muted); font-size: .72rem; font-weight: 700; letter-spacing: .12em; margin-bottom: 14px; }
+.category-list { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; }
+.category-list button { background: #fff; border: 1px solid var(--line); color: var(--text); padding: 9px 18px; border-radius: 25px; cursor: pointer; font: inherit; font-size: .85rem; font-weight: 500; transition: .2s; animation: up .6s both; }
+.category-list button:nth-child(2) { animation-delay: .05s; } .category-list button:nth-child(3) { animation-delay: .1s; }
+.category-list button:nth-child(4) { animation-delay: .15s; } .category-list button:nth-child(5) { animation-delay: .2s; } .category-list button:nth-child(6) { animation-delay: .25s; }
+.category-list button:hover { border-color: var(--brand); color: var(--brand-dark); transform: translateY(-3px); box-shadow: var(--shadow); }
+.category-list button.active { background: var(--brand); border-color: var(--brand); color: #fff; }
+
+main { max-width: 1200px; margin: auto; padding: 30px 25px 70px; }
+.section-top { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 15px; margin-bottom: 26px; }
+.section-top h2 { font-family: var(--serif); font-size: 1.9rem; line-height: 1.2; color: var(--brand-dark); }
+.section-top p { color: var(--muted); font-size: .9rem; margin-top: 4px; }
+#sortBooks { padding: 11px 14px; border: 1px solid var(--line); border-radius: 10px; background: #fff; color: var(--text); font: inherit; font-size: .9rem; }
+
+.book-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 26px 22px; }
+.book-card { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 14px; box-shadow: var(--shadow); transition: transform .25s, box-shadow .25s; animation: pop .55s cubic-bezier(.2, .8, .2, 1) both; }
+.book-card:hover { transform: translateY(-8px) rotate(-.6deg); box-shadow: var(--shadow-hover); }
+@keyframes pop { from { opacity: 0; transform: translateY(24px) scale(.95); } }
+.cover-wrap { position: relative; aspect-ratio: 2 / 3; border-radius: 6px 10px 10px 6px; overflow: hidden; margin-bottom: 14px; background: var(--surface-2); box-shadow: 0 8px 18px rgba(0, 0, 0, .22), inset 4px 0 6px -2px rgba(0, 0, 0, .28); }
+.cover-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s; }
+.book-card:hover .cover-wrap img { transform: scale(1.06); }
+.cover-fallback { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; text-align: center; padding: 18px; color: #fff; font-family: var(--serif); font-weight: 700; font-size: 1.05rem; line-height: 1.3; }
+.rating { position: absolute; top: 8px; right: 8px; background: rgba(18, 48, 28, .85); color: #fff; font-size: .75rem; font-weight: 700; padding: 3px 9px; border-radius: 20px; }
+.rating b { color: var(--star); }
+.book-card h3 { font-size: 1rem; line-height: 1.35; margin-bottom: 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.author { font-size: .85rem; color: var(--muted); margin-bottom: 12px; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+.year { font-size: .75rem; font-weight: 600; background: var(--brand-soft); color: var(--brand-dark); padding: 4px 11px; border-radius: 20px; align-self: flex-start; margin-bottom: 14px; }
+.view-link { display: block; text-align: center; background: var(--brand-dark); color: #fff; text-decoration: none; padding: 10px; border-radius: 10px; font-size: .85rem; font-weight: 600; margin-top: auto; transition: background .2s, letter-spacing .2s; }
+.view-link:hover { background: var(--brand); letter-spacing: .03em; }
+
+#message { text-align: center; padding: 30px 10px; color: var(--muted); }
+#message:empty { display: none; }
+#message button, #loadMore { margin-top: 12px; background: var(--brand); color: #fff; border: none; padding: 11px 26px; border-radius: 10px; cursor: pointer; font: inherit; font-weight: 600; transition: background .2s, transform .2s; }
+#message button:hover, #loadMore:hover { background: var(--brand-dark); transform: translateY(-2px); }
+#message small { display: block; margin-top: 6px; opacity: .75; }
+.more { text-align: center; margin-top: 36px; }
+.more[hidden] { display: none; }
+.skeleton { border-radius: 16px; height: 390px; border: 1px solid var(--line); background: linear-gradient(100deg, #fff 30%, #e2f3dc 50%, #fff 70%); background-size: 300% 100%; animation: shimmer 1.4s linear infinite; }
+@keyframes shimmer { to { background-position: -100% 0; } }
+
+footer { background: var(--brand-dark); color: #fff; text-align: center; padding: 36px 15px; }
+footer h3 { font-family: var(--serif); font-size: 1.4rem; }
+footer p { color: #c9e8cf; font-size: .85rem; margin-top: 6px; }
+
+@media (max-width: 600px) {
+  nav { padding: 12px 5%; } nav .links a { margin-left: 14px; font-size: .8rem; }
+  .hero { padding: 60px 18px 72px; } .spine { display: none; }
+  .search-box button { padding: 0 16px; }
+  main { padding: 24px 15px 50px; }
+  .book-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 12px; }
+  .book-card { padding: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="#home"><span aria-hidden="true">📚</span>BookNest</a>
+  <div class="links"><a href="#home">Home</a><a href="#books">Explore</a></div>
+</nav>
+
+<header class="hero" id="home">
+  <div class="blob a" aria-hidden="true"></div><div class="blob b" aria-hidden="true"></div><div class="blob c" aria-hidden="true"></div>
+  <span class="spine" aria-hidden="true"></span><span class="spine" aria-hidden="true"></span>
+  <span class="spine" aria-hidden="true"></span><span class="spine" aria-hidden="true"></span>
+  <div class="tag in">YOUR NEXT GREAT READ STARTS HERE</div>
+  <h1 class="in">Discover Stories.<br><span>Explore New Worlds.</span></h1>
+  <p class="in">Find your next favorite book from millions of titles written by authors around the world.</p>
+  <form class="search-box in" id="searchForm" role="search">
+    <input type="search" id="searchInput" placeholder="Search by book title or author…" aria-label="Search books" required>
+    <button type="submit">🔍 Search</button>
+  </form>
+</header>
+
+<section class="categories" aria-label="Categories">
+  <p>OR EXPLORE A POPULAR CATEGORY</p>
+  <div class="category-list">
+    <button type="button" data-query="fiction">Fiction</button>
+    <button type="button" data-query="science">Science</button>
+    <button type="button" data-query="technology">Technology</button>
+    <button type="button" data-query="history">History</button>
+    <button type="button" data-query="fantasy">Fantasy</button>
+    <button type="button" data-query="romance">Romance</button>
+  </div>
+</section>
+
+<main id="books">
+  <div class="section-top">
+    <div>
+      <h2 id="resultHeading">Popular Books</h2>
+      <p id="resultCount">Discover something wonderful to read.</p>
+    </div>
+    <select id="sortBooks" aria-label="Sort books">
+      <option value="relevance">Sort: Relevance</option>
+      <option value="rating">Top rated</option>
+      <option value="newest">Newest first</option>
+      <option value="oldest">Oldest first</option>
+      <option value="title">Title A–Z</option>
+    </select>
+  </div>
+
+  <div id="message" role="status" aria-live="polite"></div>
+  <section class="book-grid" id="bookGrid" aria-label="Book results"></section>
+  <div class="more" id="moreWrap" hidden><button type="button" id="loadMore">Load more books</button></div>
+</main>
+
+<footer>
+  <h3>📚 BookNest</h3>
+  <p>Find books. Discover knowledge. Explore imagination.</p>
+  <p>Powered by Open Library &amp; Google Books · © 2026 BookNest</p>
+</footer>
+
+<script>
+const PAGE_SIZE = 24;
+
+// Book sources, tried in order. If one is down or slow, the next one takes over,
+// so the page keeps working. Every source returns the same simple book shape.
+const olBooks = d => ({
+  total: d.numFound || 0,
+  books: (d.docs || []).map(b => ({
+    title: b.title, authors: b.author_name, year: b.first_publish_year, rating: b.ratings_average,
+    cover: b.cover_i ? `https://covers.openlibrary.org/b/id/${b.cover_i}-M.jpg` : "",
+    link: b.key ? "https://openlibrary.org" + b.key : "https://openlibrary.org/"
+  }))
+});
+const SOURCES = [
+  { name: "Open Library",
+    url: (t, subj, p) => "https://openlibrary.org/search.json?q=" + encodeURIComponent(subj ? "subject:" + t : t) +
+      "&fields=key,title,author_name,first_publish_year,cover_i,ratings_average&limit=" + PAGE_SIZE + "&page=" + p,
+    parse: olBooks },
+  { name: "Open Library (basic)",
+    url: (t, subj, p) => "https://openlibrary.org/search.json?q=" + encodeURIComponent(t) + "&limit=" + PAGE_SIZE + "&page=" + p,
+    parse: olBooks },
+  { name: "Google Books",
+    url: (t, subj, p) => "https://www.googleapis.com/books/v1/volumes?q=" + encodeURIComponent(subj ? "subject:" + t : t) +
+      "&printType=books&maxResults=" + PAGE_SIZE + "&startIndex=" + (p - 1) * PAGE_SIZE,
+    parse: d => ({
+      total: d.totalItems || 0,
+      books: (d.items || []).map(i => {
+        const v = i.volumeInfo || {};
+        return { title: v.title, authors: v.authors, year: parseInt(v.publishedDate) || null, rating: v.averageRating,
+          cover: v.imageLinks && v.imageLinks.thumbnail ? v.imageLinks.thumbnail.replace("http:", "https:") : "",
+          link: v.infoLink || "https://books.google.com/" };
+      })
+    }) }
+];
+
+const searchForm = document.getElementById("searchForm");
+const searchInput = document.getElementById("searchInput");
+const bookGrid = document.getElementById("bookGrid");
+const message = document.getElementById("message");
+const resultHeading = document.getElementById("resultHeading");
+const resultCount = document.getElementById("resultCount");
+const sortBooks = document.getElementById("sortBooks");
+const moreWrap = document.getElementById("moreWrap");
+const loadMore = document.getElementById("loadMore");
+const chips = document.querySelectorAll(".category-list button");
+
+const state = { term: "", subject: false, page: 1, total: 0, books: [], source: 0, lastCount: 0, token: 0 };
+
+searchForm.addEventListener("submit", e => {
+  e.preventDefault();
+  const term = searchInput.value.trim();
+  if (!term) return;
+  setActiveChip(null);
+  runSearch({ term, heading: "Results for “" + term + "”" });
+});
+chips.forEach(btn => btn.addEventListener("click", () => {
+  searchInput.value = btn.textContent;
+  setActiveChip(btn);
+  runSearch({ term: btn.dataset.query, subject: true, heading: btn.textContent + " Books" });
+}));
+sortBooks.addEventListener("change", renderBooks);
+loadMore.addEventListener("click", () => runSearch({ append: true }));
+
+function setActiveChip(active) { chips.forEach(b => b.classList.toggle("active", b === active)); }
+
+function showSkeletons(n = 8) {
+  bookGrid.innerHTML = "";
+  for (let i = 0; i < n; i++) {
+    const s = document.createElement("div");
+    s.className = "skeleton";
+    s.setAttribute("aria-hidden", "true");
+    bookGrid.appendChild(s);
+  }
+}
+
+async function getJSON(url) {
+  const ctl = new AbortController();
+  const timer = setTimeout(() => ctl.abort(), 12000); // don't wait forever
+  try {
+    const res = await fetch(url, { signal: ctl.signal });
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    return await res.json();
+  } finally { clearTimeout(timer); }
+}
+
+async function runSearch({ term, subject = false, heading, append = false }) {
+  const token = ++state.token; // ignore results from older, slower requests
+  if (append) {
+    state.page++;
+    loadMore.disabled = true;
+    loadMore.textContent = "Loading…";
+  } else {
+    Object.assign(state, { term, subject, page: 1, total: 0, books: [], source: 0, lastCount: 0 });
+    resultHeading.textContent = heading;
+    resultCount.textContent = "Finding books for you…";
+    message.textContent = "";
+    moreWrap.hidden = true;
+    showSkeletons();
+  }
+
+  const order = append ? [state.source] : SOURCES.map((_, i) => i);
+  let found = null, lastError = null;
+
+  for (const i of order) {
+    try {
+      const src = SOURCES[i];
+      const parsed = src.parse(await getJSON(src.url(state.term, state.subject, state.page)));
+      if (token !== state.token) return;
+      lastError = null;
+      if (parsed.books.length === 0 && !append && i < SOURCES.length - 1) { found = parsed; continue; }
+      found = parsed; state.source = i;
+      break;
+    } catch (err) {
+      if (token !== state.token) return;
+      console.error(SOURCES[i].name + " failed:", err);
+      lastError = err;
+    }
+  }
+
+  loadMore.disabled = false;
+  loadMore.textContent = "Load more books";
+
+  if (!found) { // every source failed
+    if (append) state.page--;
+    else bookGrid.innerHTML = "";
+    resultCount.textContent = "Search unavailable";
+    message.textContent = "Unable to load books. Please check your internet connection and try again.";
+    const detail = document.createElement("small");
+    detail.textContent = lastError ? "Details: " + lastError.message : "";
+    const retry = document.createElement("button");
+    retry.type = "button";
+    retry.textContent = "Try again";
+    retry.addEventListener("click", () => append
+      ? runSearch({ append: true })
+      : runSearch({ term: state.term, subject: state.subject, heading: resultHeading.textContent }));
+    message.append(detail, retry);
+    return;
+  }
+
+  state.total = found.total;
+  state.lastCount = found.books.length;
+  state.books = state.books.concat(found.books);
+
+  if (state.books.length === 0) {
+    bookGrid.innerHTML = "";
+    message.textContent = "No books found. Try another title or author.";
+    resultCount.textContent = "0 results";
+    return;
+  }
+  message.textContent = "";
+  renderBooks();
+}
+
+function sortedBooks() {
+  const books = [...state.books], by = sortBooks.value;
+  if (by === "newest") books.sort((a, b) => (b.year || 0) - (a.year || 0));
+  else if (by === "oldest") books.sort((a, b) => (a.year || 9999) - (b.year || 9999));
+  else if (by === "rating") books.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+  else if (by === "title") books.sort((a, b) => (a.title || "").localeCompare(b.title || ""));
+  return books;
+}
+
+// A colourful cover made from the title, used when a book has no image or it fails to load.
+function makeFallback(title) {
+  let hue = 90;
+  for (const ch of title) hue = (hue * 31 + ch.charCodeAt(0)) % 360;
+  const div = document.createElement("div");
+  div.className = "cover-fallback";
+  div.style.background = `linear-gradient(145deg, hsl(${hue} 50% 36%), hsl(${(hue + 40) % 360} 55% 24%))`;
+  div.textContent = title;
+  return div;
+}
+
+function renderBooks() {
+  bookGrid.innerHTML = "";
+  const shown = sortedBooks();
+
+  shown.forEach((book, i) => {
+    const titleText = book.title || "Unknown Title";
+    const card = document.createElement("article");
+    card.className = "book-card";
+    card.style.animationDelay = Math.min(i % PAGE_SIZE, 12) * 40 + "ms";
+
+    const coverWrap = document.createElement("div");
+    coverWrap.className = "cover-wrap";
+    if (book.cover) {
+      const image = document.createElement("img");
+      image.src = book.cover;
+      image.alt = "Cover of " + titleText;
+      image.loading = "lazy";
+      image.addEventListener("error", () => image.replaceWith(makeFallback(titleText)));
+      coverWrap.appendChild(image);
+    } else {
+      coverWrap.appendChild(makeFallback(titleText));
+    }
+    if (book.rating) {
+      const rating = document.createElement("span");
+      rating.className = "rating";
+      const star = document.createElement("b");
+      star.textContent = "★";
+      rating.append(star, " " + Number(book.rating).toFixed(1));
+      coverWrap.appendChild(rating);
+    }
+
+    const title = document.createElement("h3");
+    title.textContent = titleText;
+    title.title = titleText;
+
+    const author = document.createElement("p");
+    author.className = "author";
+    author.textContent = "By " + (book.authors && book.authors.length ? book.authors.join(", ") : "Unknown Author");
+
+    const year = document.createElement("span");
+    year.className = "year";
+    year.textContent = book.year ? "Published " + book.year : "Year unavailable";
+
+    const link = document.createElement("a");
+    link.className = "view-link";
+    link.textContent = "View Book →";
+    link.href = book.link;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.setAttribute("aria-label", "View " + titleText + " (opens in a new tab)");
+
+    card.append(coverWrap, title, author, year, link);
+    bookGrid.appendChild(card);
+  });
+
+  const total = state.total.toLocaleString();
+  resultCount.textContent = state.source === 2
+    ? `Showing ${shown.length} books`
+    : `Showing ${shown.length} of ${total} books`;
+  moreWrap.hidden = state.lastCount < PAGE_SIZE || state.books.length >= state.total;
+}
+
+// Show popular books when the site opens.
+runSearch({ term: "fiction", subject: true, heading: "Popular Books" });
+</script>
+</body>
+</html>
